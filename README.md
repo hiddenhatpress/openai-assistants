@@ -60,11 +60,11 @@ foreach ($entities['data'] as $asst) {
 }
 ```
 
-> **NOTE** because the list endpoint returns 20 elements by default, this appraoch would not scale if you had more than 20 asssistants. In a robust system you'd likely have stored an assistant id. If you wanted to create a reliable version of this dynamic name-based system you'd need to page through the data. `list()` supports `limit` -- up to 100 -- as well as `before` and `after` fields.
+> **NOTE** because the list endpoint returns 20 elements by default, this approach would not scale if you had more than 20 asssistants. In a robust system you'd likely have stored an assistant id. If you wanted to create a reliable version of this dynamic name-based logic you'd need to page through the data. `list()` supports `limit` -- up to 100 -- as well as `before` and `after` fields.
 
 ### Create an assistant and upload a file
 
-For a first run we'll need to actually create the assistant and upload a source file (the [text version](https://www.gutenberg.org/ebooks/2811.txt.utf-8) of Pliny's letters saved as `pliny.txt`).
+For a first run, we'll need to actually create the assistant and upload a source file (the [text version](https://www.gutenberg.org/ebooks/2811.txt.utf-8) of Pliny's letters saved as `pliny.txt`).
 
 ```php
 if (empty($assistantid)) {
@@ -101,7 +101,7 @@ $msgresp = $messageservice->create($threadid, $content);
 ```
 
 ### Running the thread to send the message 
-Next, we need a tell the API to run the thread. We use the [runs API](https://platform.openai.com/docs/api-reference/runs) for this.
+Next, we need to tell the API to run the thread. We use the [runs API](https://platform.openai.com/docs/api-reference/runs) for this.
 
 ```php
 $runresp = $runservice->create($threadid, $assistantid);
@@ -124,7 +124,7 @@ print $msgs['data'][0]['content'][0]['text']['value'];
 print "\n";
 ```
 
-By default, messages are ordered in descending order, so the first element will be the latest.
+By default, messages are returned in descending order, so the first element will be the latest.
 
 ### Some output
 
