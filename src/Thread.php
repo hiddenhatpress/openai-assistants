@@ -6,17 +6,17 @@ class Thread {
     {
     }
 
-
-    public function create(array $messages = [], array $metadata=[])
+    public function create(array $messages = [], array $metadata=[]): array
     {
-         $data = [
-             "messages" => $messages,
-             "metadata" => $metadata,
-         ];
-         return $this->comms->doPost("https://api.openai.com/v1/threads", $data);
+        // https://platform.openai.com/docs/api-reference/threads/createThread
+        $data = [
+            "messages" => $messages,
+            "metadata" => $metadata,
+        ];
+        return $this->comms->doPost("https://api.openai.com/v1/threads", $data);
     }
 
-    public function modify(string $threadid, array $messages = [], array $metadata=[])
+    public function modify(string $threadid, array $messages = [], array $metadata=[]): array
     {
         // https://platform.openai.com/docs/api-reference/threads/modifyThread 
         $data = [
@@ -26,15 +26,17 @@ class Thread {
         return $this->comms->doPost("https://api.openai.com/v1/threads/{$threadid}", $data);
     }
 
-    function retrieve($id)
+    function retrieve($id): array
     {
+        // https://platform.openai.com/docs/api-reference/threads/getThread
         $url = "https://api.openai.com/v1/threads/{$id}";
         return $this->comms->doGet($url);
     }
 
 
-    function del(string $id)
+    function del(string $id): array
     {
+        // https://platform.openai.com/docs/api-reference/threads/deleteThread
         $url = "https://api.openai.com/v1/threads/{$id}";
         return $this->comms->doDelete($url);
     }

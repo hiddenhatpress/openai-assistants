@@ -72,6 +72,7 @@ class Assistant {
 
     function modify(
         string $id,
+        string $name,
         string $instructions,
         array $toolTypes = [],
         array $fileids = [],
@@ -81,21 +82,22 @@ class Assistant {
         // https://platform.openai.com/docs/api-reference/assistants/updateAssistant
         $model ??= $this->comms->getModel();
 
-        if (! is_null($description)) {
-            $data['description'] = $description;
-        }
-
         $url = "https://api.openai.com/v1/assistants/{$id}";
         $tools = array_map(function($type) {
             return ['type' => $type];
         }, $toolTypes);
 
         $data = [
+            "name" => $name,
             "instructions" => $instructions,
             "tools" => $tools,
             "model" => $model,
             "file_ids" => $fileids
         ];
+
+        if (! is_null($description)) {
+            $data['description'] = $description;
+        }
 
         return $this->comms->doPost($url, $data);
     }

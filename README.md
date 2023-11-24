@@ -2,8 +2,8 @@
 #
 A quick and dirty client for OpenAI's assistants API.
 
-[OpenAI API documentation](https://platform.openai.com/docs/api-reference/assistants)
-[OpenAI Assistants overview](https://platform.openai.com/docs/assistants/overview)
+* [OpenAI API documentation](https://platform.openai.com/docs/api-reference/assistants)
+* [OpenAI Assistants overview](https://platform.openai.com/docs/assistants/overview)
 
 ## Overview
 
@@ -19,7 +19,7 @@ $asstcomms = new AsstComms($model, $token);
 $assistants = new Assistants($asstcomms);
 ```
 
-The `Assistants` object is really only a factory for objects which provide thin client access to the [assistant](https://platform.openai.com/docs/api-reference/assistants), [thread](https://platform.openai.com/docs/api-reference/threads). [Messages](https://platform.openai.com/docs/api-reference/messages) and [runs](https://platform.openai.com/docs/api-reference/runs) APIs.
+The `Assistants` object is really only a factory for objects which provide thin client access to the [assistant](https://platform.openai.com/docs/api-reference/assistants), [thread](https://platform.openai.com/docs/api-reference/threads). [messages](https://platform.openai.com/docs/api-reference/messages) and [runs](https://platform.openai.com/docs/api-reference/runs) APIs.
 
 ```php
 $asstservice = $assistants->getAssistantService();
@@ -35,10 +35,10 @@ The basic workflow for the Assistants API is:
 1. Create an assistant
 2. Optionally add files to the assistant
 3. Create a thread (so that different users can use the assistant through your interface)
-4. Create a message representing a user's message and add it to thread
+4. Create a message representing a user's query and add it to thread
 5. Run the thread
-6. Poll the status of the the run until its status is completed
-7. Get the latest message (the response) from the thread and return to the user
+6. Poll the status of the the run until its status is `completed`
+7. Get the latest message (the system's response) from the thread and return to the user
 8. Repeat from step 4 as needed
 
 We're going to create an assistant to help us read the [letters of Pliny the Younger](https://www.gutenberg.org/ebooks/2811).
@@ -60,11 +60,11 @@ foreach ($entities['data'] as $asst) {
 }
 ```
 
-> **NOTE** because the list endpoint returns 20 elements by default, this appraoch would not scale if you had more than 20 asssistants. In a robust system you'd likely have stored an assistant id. If you wanted to create a reliable version of this dynamic name-based system you'd need page through the data. `list()` supports `limit` -- up to 100 -- as well as `before` and `after` fields.
+> **NOTE** because the list endpoint returns 20 elements by default, this appraoch would not scale if you had more than 20 asssistants. In a robust system you'd likely have stored an assistant id. If you wanted to create a reliable version of this dynamic name-based system you'd need to page through the data. `list()` supports `limit` -- up to 100 -- as well as `before` and `after` fields.
 
 ### Create an assistant and upload a file
 
-For a first run we'll need to actually create the assistant, and upload a source file (the [text version](https://www.gutenberg.org/ebooks/2811.txt.utf-8) of the letters saved as `pliny.txt`).
+For a first run we'll need to actually create the assistant and upload a source file (the [text version](https://www.gutenberg.org/ebooks/2811.txt.utf-8) of Pliny's letters saved as `pliny.txt`).
 
 ```php
 if (empty($assistantid)) {
@@ -81,7 +81,7 @@ if (empty($assistantid)) {
 }
 ```
 
-The arguments to `create()` are a name, a set of instructions, and a list of tool types. These can be `code_interpreter`, `retrieval`, or `function`. We are creating a retrieval assistant -- that is, an assistant specialised in working with texts we give it. We're giving it a historical text -- but the assistant would likely come into its own interpreting files that the model has not already been trained on -- a novel-in-progress perhaps, or corporate documents.
+The arguments to `create()` are a name, a set of instructions, and a list of tool types. These can be `code_interpreter`, `retrieval`, or `function`. We are creating a retrieval assistant -- that is, an assistant specialised in working with texts we provide. We're giving it a historical text -- but the assistant would likely come into its own interpreting files that the model has not already been trained on -- a novel-in-progress perhaps, or corporate documents.
 
 The `AssistantFile` class accesses the file aspect of the [assistants API](https://platform.openai.com/docs/api-reference/assistants) and the [File API](https://platform.openai.com/docs/api-reference/files). So `createAndAssignAssistantFile()` uploads a given file and then associates it with an assistant.
 
@@ -108,7 +108,7 @@ $runresp = $runservice->create($threadid, $assistantid);
 while($runresp['status'] != "completed") {
     sleep(1);
     print "# polling {$runresp['status']}\n";
-    $runresp = $runservice->retrieve($runresp['id'], $threadid);
+    $runresp = $runservice->retrieve($threadid, $runresp['id']);
 }
 ```
 
@@ -153,7 +153,6 @@ We can get an assistant's file ids from the [assistants API](https://platform.op
 // get the files from the assistant
 $files = $fileservice->listAssistantFiles($assistantid);
 foreach ($files['data'] as $finfo) {
-    print $finfo['id'] . "\n";
     // unassign and delete
     $fileservice->unassignAndDeleteAssistantFile($assistantid, $finfo['id']);
 }
