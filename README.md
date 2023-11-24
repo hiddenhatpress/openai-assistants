@@ -60,6 +60,8 @@ foreach ($entities['data'] as $asst) {
 }
 ```
 
+> **NOTE** because the list endpoint returns 20 elements by default, this appraoch would not scale if you had more than 20 asssistants. In a robust system you'd likely have stored an assistant id. If you wanted to create a reliable version of this dynamic name-based system you'd need page through the data. `list()` supports `limit` -- up to 100 -- as well as `before` and `after` fields.
+
 ### Create an assistant and upload a file
 
 For a first run we'll need to actually create the assistant, and upload a source file (the [text version](https://www.gutenberg.org/ebooks/2811.txt.utf-8) of the letters saved as `pliny.txt`).

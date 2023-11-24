@@ -37,6 +37,7 @@ class Assistant {
 
     function del(string $id): array
     {
+        // https://platform.openai.com/docs/api-reference/assistants/deleteAssistant
         $url = "https://api.openai.com/v1/assistants/{$id}";
         return $this->comms->doDelete($url);
     }
@@ -47,6 +48,7 @@ class Assistant {
         ?string $after = null,
         ?string $before = null
     ): array {
+        // https://platform.openai.com/docs/api-reference/assistants/listAssistants
         $data = [
             "order" => $order,
             "limit" => $limit
