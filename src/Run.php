@@ -1,7 +1,9 @@
 <?php
+
 namespace hiddenhatpress\openai\assistants;
 
-class Run {
+class Run
+{
     public function __construct(private AsstComms $comms)
     {
     }
@@ -12,30 +14,30 @@ class Run {
         ?array $toolTypes = null,
         ?string $model = null,
         ?string $instructions = null,
-        array $metadata=[]
-    ): array  {
+        array $metadata = []
+    ): array {
          // https://platform.openai.com/docs/api-reference/runs/createRun
-       
+
          $data = [
              "assistant_id" => $assistantid,
              "metadata" => $metadata
          ];
- 
+
          if (! is_null($toolTypes)) {
-             $tools = array_map(function($type) {
+             $tools = array_map(function ($type) {
                  return ['type' => $type];
              }, $toolTypes);
              $data['tools'] = $tools;
          }
 
          if (! is_null($model)) {
-            $data['model'] = $model;
+             $data['model'] = $model;
          }
 
          if (! is_null($instructions)) {
-            $data['instructions'] = $instructions;
+             $data['instructions'] = $instructions;
          }
-       
+
          $url = "https://api.openai.com/v1/threads/{$threadid}/runs";
          return $this->comms->doPost($url, $data);
     }
@@ -46,7 +48,7 @@ class Run {
         ?array $toolTypes = null,
         ?string $model = null,
         ?string $instructions = null,
-        array $metadata=[],
+        array $metadata = [],
     ): array {
         // https://platform.openai.com/docs/api-reference/runs/createThreadAndRun
         $url = "https://api.openai.com/v1/threads/runs";
@@ -54,24 +56,24 @@ class Run {
              "assistant_id" => $assistantid,
              "metadata" => $metadata
          ];
- 
+
          if (! is_null($toolTypes)) {
-             $tools = array_map(function($type) {
+             $tools = array_map(function ($type) {
                  return ['type' => $type];
              }, $toolTypes);
              $data['tools'] = $tools;
          }
 
          if (! is_null($threaddata)) {
-            $data['threaddata'] = $threaddata;
+             $data['threaddata'] = $threaddata;
          }
 
          if (! is_null($model)) {
-            $data['model'] = $model;
+             $data['model'] = $model;
          }
 
          if (! is_null($instructions)) {
-            $data['instructions'] = $instructions;
+             $data['instructions'] = $instructions;
          }
 
          $url = "https://api.openai.com/v1/threads/runs";
@@ -88,7 +90,7 @@ class Run {
     public function modify(
         string $threadid,
         string $runid,
-        array $metadata=[],
+        array $metadata = [],
     ): array {
          $data = [
              "metadata" => $metadata
@@ -98,7 +100,7 @@ class Run {
          return $this->comms->doPost($url, $data);
     }
 
-    public function listRuns (
+    public function listRuns(
         string $threadid,
         int $limit = 20,
         string $order = "desc",
@@ -120,7 +122,7 @@ class Run {
         return $this->comms->doGet($url, $data);
     }
 
-    public function submitToolOutputs (
+    public function submitToolOutputs(
         string $threadid,
         string $runid,
         array $tooloutputs,
@@ -133,17 +135,17 @@ class Run {
         return $this->comms->doPost($url, $data);
     }
 
-     public function cancel(
+    public function cancel(
         string $threadid,
         string $runid,
     ): array {
         // https://platform.openai.com/docs/api-reference/runs/cancelRun
-         $url = "https://api.openai.com/v1/threads/{$threadid}/runs/{$runid}/cancel";
-         $data = [];
-         return $this->comms->doPost($url, $data);
+        $url = "https://api.openai.com/v1/threads/{$threadid}/runs/{$runid}/cancel";
+        $data = [];
+        return $this->comms->doPost($url, $data);
     }
 
-    public function retrieveRunStep (
+    public function retrieveRunStep(
         string $threadid,
         string $runid,
         string $stepid,

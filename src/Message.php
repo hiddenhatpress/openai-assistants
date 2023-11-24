@@ -1,7 +1,9 @@
 <?php
+
 namespace hiddenhatpress\openai\assistants;
 
-class Message {
+class Message
+{
     public function __construct(private AsstComms $comms)
     {
     }
@@ -9,8 +11,8 @@ class Message {
     public function create(
         string $thread_id,
         string $content,
-        array $file_ids=[],
-        array $metadata=[],
+        array $file_ids = [],
+        array $metadata = [],
         string $role = "user"
     ): array {
         // https://platform.openai.com/docs/api-reference/messages/createMessage
@@ -26,7 +28,7 @@ class Message {
     public function modify(
         string $threadid,
         string $msgid,
-        array $metadata=[]
+        array $metadata = []
     ): array {
         // https://platform.openai.com/docs/api-reference/messages/modifyMessage
          $data = [
@@ -64,7 +66,7 @@ class Message {
         return $this->comms->doGet($url, $data);
     }
 
-    public function retrieveMessageFile (
+    public function retrieveMessageFile(
         string $threadid,
         string $msgid,
         string $fileid
@@ -75,7 +77,7 @@ class Message {
         return $this->comms->doGet($url, $data);
     }
 
-    public function listMessageFiles (
+    public function listMessageFiles(
         string $threadid,
         string $msgid,
         int $limit = 20,
@@ -98,4 +100,3 @@ class Message {
         return $this->comms->doGet($url, $data);
     }
 }
-

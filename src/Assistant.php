@@ -1,19 +1,21 @@
 <?php
+
 namespace hiddenhatpress\openai\assistants;
 
-class Assistant {
+class Assistant
+{
     public function __construct(private AsstComms $comms)
     {
     }
 
-    public function create (
-         string $name,
-         string $instructions,
-         array $toolTypes = [],
-         array $fileids = [],
-         ?string $description = null,
-         ?string $model = null,
-     ): array {
+    public function create(
+        string $name,
+        string $instructions,
+        array $toolTypes = [],
+        array $fileids = [],
+        ?string $description = null,
+        ?string $model = null,
+    ): array {
         // https://platform.openai.com/docs/api-reference/assistants/createAssistant
         $model ??= $this->comms->getModel();
         $data = [
@@ -23,7 +25,7 @@ class Assistant {
             "file_ids" => $fileids
         ];
 
-        $tools = array_map(function($type) {
+        $tools = array_map(function ($type) {
             return ['type' => $type];
         }, $toolTypes);
         $data['tools'] = $tools;
@@ -65,7 +67,7 @@ class Assistant {
 
     function retrieve($id): array
     {
-        // https://platform.openai.com/docs/api-reference/assistants/getAssistant 
+        // https://platform.openai.com/docs/api-reference/assistants/getAssistant
         $url = "https://api.openai.com/v1/assistants/{$id}";
         return $this->comms->doGet($url);
     }
@@ -83,7 +85,7 @@ class Assistant {
         $model ??= $this->comms->getModel();
 
         $url = "https://api.openai.com/v1/assistants/{$id}";
-        $tools = array_map(function($type) {
+        $tools = array_map(function ($type) {
             return ['type' => $type];
         }, $toolTypes);
 

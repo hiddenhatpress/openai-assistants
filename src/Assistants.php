@@ -1,7 +1,9 @@
 <?php
+
 namespace hiddenhatpress\openai\assistants;
 
-class Assistants {
+class Assistants
+{
     private AsstComms $comms;
     private Assistant $assistant;
     private AssistantFile $assistantfile;
@@ -44,4 +46,3 @@ class Assistants {
         return $this->thread;
     }
 }
-

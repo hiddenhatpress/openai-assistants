@@ -1,13 +1,15 @@
 <?php
+
 namespace hiddenhatpress\openai\assistants;
 
-class AsstComms {
-    
+class AsstComms
+{
     public function __construct(private string $model, private string $secretKey)
     {
     }
 
-    public function getModel(): string {
+    public function getModel(): string
+    {
         return $this->model;
     }
 
@@ -19,7 +21,7 @@ class AsstComms {
             'OpenAI-Beta: assistants=v1'
         ];
         if (count($args)) {
-            $qs= http_build_query($args);
+            $qs = http_build_query($args);
             $url .= "?{$qs}";
         }
 
@@ -88,14 +90,14 @@ class AsstComms {
         $headers = [
             'Authorization: Bearer ' . $this->secretKey,
         ];
-        
+
         $pathinfo = pathinfo($filePath);
         $fullpath = realpath($filePath);
         if ($pathinfo['extension'] == "php") {
             // for some reason openai does not like files which lead with a php opening tag
             $contents = file_get_contents($filePath);
             $contents = preg_replace("/^\s*(<\?php)/s", "", $contents);
-            $contents = preg_replace("/\n\s*(\?".">)\s*$/s", "", $contents);
+            $contents = preg_replace("/\n\s*(\?" . ">)\s*$/s", "", $contents);
             $cfile = new \CURLStringFile($contents, basename($filePath));
         } else {
             $cfile = new \CURLFile($fullpath, null, basename($fullpath));
