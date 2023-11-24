@@ -141,10 +141,9 @@ Let's run the code and get some ancient fish news.
 >1. He discusses the offerings of his local sea and expresses a somewhat limited pride in its bounty. He says, "I cannot boast that our sea is plentiful in choice fish" but then goes on to recognize that it does provide for "capital soles and prawns." This indicates a modest abundance of certain kinds of fish, and he contrasts this with the abundant provisions of other types, such as milk, which he proudly notes his villa's ability to excel in even when compared to inland places【7†source】.
 >
 >...
-```
 
 ### Tidying up: unassign and delete assistant files
-In real world code we would not usually build an assistant only to tear it down again at the end of our process. We'd be more likely to establish an assistant and use it over time, creating new threads for new users. These threads might also persist for some time.
+In real world code, we would not usually build an assistant only to tear it down again at the end of our process. We'd be more likely to establish an assistant and use it over time, creating new threads for new users. These threads might also persist for some time.
 
 Here, however, we want to leave things as we found them. First, let's delete the file we uploaded.
 
