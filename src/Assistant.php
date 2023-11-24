@@ -37,14 +37,14 @@ class Assistant
         return $this->comms->doPost("https://api.openai.com/v1/assistants", $data);
     }
 
-    function del(string $id): array
+    public function del(string $id): array
     {
         // https://platform.openai.com/docs/api-reference/assistants/deleteAssistant
         $url = "https://api.openai.com/v1/assistants/{$id}";
         return $this->comms->doDelete($url);
     }
 
-    function list(
+    public function list(
         int $limit = 20,
         string $order = "desc",
         ?string $after = null,
@@ -65,14 +65,14 @@ class Assistant
         return $this->comms->doGet($url, $data);
     }
 
-    function retrieve($id): array
+    public function retrieve($id): array
     {
         // https://platform.openai.com/docs/api-reference/assistants/getAssistant
         $url = "https://api.openai.com/v1/assistants/{$id}";
         return $this->comms->doGet($url);
     }
 
-    function modify(
+    public function modify(
         string $id,
         string $name,
         string $instructions,

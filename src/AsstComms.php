@@ -80,7 +80,7 @@ class AsstComms
         return json_decode($response, true);
     }
 
-    function doFileUpload(string $filePath): string
+    public function doFileUpload(string $filePath): string
     {
         if (! file_exists($filePath)) {
             throw new \Exception("no file at '$filePath'");

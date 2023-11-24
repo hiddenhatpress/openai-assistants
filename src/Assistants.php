@@ -16,31 +16,31 @@ class Assistants
         $this->comms = $comms;
     }
 
-    function getAssistantService(): Assistant
+    public function getAssistantService(): Assistant
     {
         $this->assistant ??= new Assistant($this->comms);
         return $this->assistant;
     }
 
-    function getAssistantFileService(): AssistantFile
+    public function getAssistantFileService(): AssistantFile
     {
         $this->assistantfile ??= new AssistantFile($this->comms);
         return $this->assistantfile;
     }
 
-    function getMessageService(): Message
+    public function getMessageService(): Message
     {
         $this->message ??= new Message($this->comms);
         return $this->message;
     }
 
-    function getRunService(): Run
+    public function getRunService(): Run
     {
         $this->run ??= new Run($this->comms);
         return $this->run;
     }
 
-    function getThreadService(): Thread
+    public function getThreadService(): Thread
     {
         $this->thread ??= new Thread($this->comms);
         return $this->thread;

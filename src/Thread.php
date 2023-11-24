@@ -28,7 +28,7 @@ class Thread
         return $this->comms->doPost("https://api.openai.com/v1/threads/{$threadid}", $data);
     }
 
-    function retrieve($id): array
+    public function retrieve($id): array
     {
         // https://platform.openai.com/docs/api-reference/threads/getThread
         $url = "https://api.openai.com/v1/threads/{$id}";
@@ -36,7 +36,7 @@ class Thread
     }
 
 
-    function del(string $id): array
+    public function del(string $id): array
     {
         // https://platform.openai.com/docs/api-reference/threads/deleteThread
         $url = "https://api.openai.com/v1/threads/{$id}";
