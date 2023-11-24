@@ -19,7 +19,7 @@ $asstcomms = new AsstComms($model, $token);
 $assistants = new Assistants($asstcomms);
 ```
 
-The `Assistants` object is really only a factory for objects which provide thin client access to the [assistant](https://platform.openai.com/docs/api-reference/assistants), [thread](https://platform.openai.com/docs/api-reference/threads). [messages](https://platform.openai.com/docs/api-reference/messages) and [runs](https://platform.openai.com/docs/api-reference/runs) APIs.
+The `Assistants` class is really only a factory for objects which provide thin client access to the [assistant](https://platform.openai.com/docs/api-reference/assistants), [thread](https://platform.openai.com/docs/api-reference/threads). [messages](https://platform.openai.com/docs/api-reference/messages) and [runs](https://platform.openai.com/docs/api-reference/runs) APIs.
 
 ```php
 $asstservice = $assistants->getAssistantService();
