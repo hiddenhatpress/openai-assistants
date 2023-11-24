@@ -83,7 +83,7 @@ if (empty($assistantid)) {
 
 The arguments to `create()` are a name, a set of instructions, and a list of tool types. These can be `code_interpreter`, `retrieval`, or `function`. We are creating a retrieval assistant -- that is, an assistant specialised in working with texts we give it. We're giving it a historical text -- but the assistant would likely come into its own interpreting files that the model has not already been trained on -- a novel-in-progress perhaps, or corporate documents.
 
-The `AssistantFile` class accesses the file aspect of the assistants API and the [File API](https://platform.openai.com/docs/api-reference/files). So `createAndAssignAssistantFile()` uploads a given file and then associates it with an assistant.
+The `AssistantFile` class accesses the file aspect of the [assistants API](https://platform.openai.com/docs/api-reference/assistants) and the [File API](https://platform.openai.com/docs/api-reference/files). So `createAndAssignAssistantFile()` uploads a given file and then associates it with an assistant.
 
 Now we have an assistant with access to the text we are interested in. Let's try asking it a question.
 
@@ -135,12 +135,12 @@ Let's run the code and get some ancient fish news.
 # polling in_progress
 # polling in_progress
 ...
-
-Pliny the Younger mentioned fish in the context of his letters to highlight certain aspects or qualities of his environment or surroundings:
-
-1. He discusses the offerings of his local sea and expresses a somewhat limited pride in its bounty. He says, "I cannot boast that our sea is plentiful in choice fish" but then goes on to recognize that it does provide for "capital soles and prawns." This indicates a modest abundance of certain kinds of fish, and he contrasts this with the abundant provisions of other types, such as milk, which he proudly notes his villa's ability to excel in even when compared to inland places【7†source】.
-
-...
+```
+> Pliny the Younger mentioned fish in the context of his letters to highlight certain aspects or qualities of his environment or surroundings:
+>
+>1. He discusses the offerings of his local sea and expresses a somewhat limited pride in its bounty. He says, "I cannot boast that our sea is plentiful in choice fish" but then goes on to recognize that it does provide for "capital soles and prawns." This indicates a modest abundance of certain kinds of fish, and he contrasts this with the abundant provisions of other types, such as milk, which he proudly notes his villa's ability to excel in even when compared to inland places【7†source】.
+>
+>...
 ```
 
 ### Tidying up: unassign and delete assistant files
