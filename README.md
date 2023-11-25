@@ -2,8 +2,8 @@
 #
 A quick and dirty client for OpenAI's assistants API.
 
-* [OpenAI API documentation](https://platform.openai.com/docs/api-reference/assistants)
 * [OpenAI Assistants overview](https://platform.openai.com/docs/assistants/overview)
+* [OpenAI API documentation](https://platform.openai.com/docs/api-reference/assistants)
 
 ## Installation
 The easiest way to get this code is via Composer:
