@@ -98,9 +98,9 @@ class AsstComms
             $contents = file_get_contents($filePath);
             $contents = preg_replace("/^\s*(<\?php)/s", "", $contents);
             $contents = preg_replace("/\n\s*(\?" . ">)\s*$/s", "", $contents);
-            $cfile = new \CURLStringFile($contents, basename($filePath));
+            $cfile = new \CURLStringFile($contents, $filePath);
         } else {
-            $cfile = new \CURLFile($fullpath, null, basename($fullpath));
+            $cfile = new \CURLFile($fullpath, null, $filePath);
         }
 
         $curl = curl_init();
