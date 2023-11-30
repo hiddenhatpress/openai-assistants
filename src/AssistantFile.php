@@ -58,6 +58,12 @@ class AssistantFile
         return $this->comms->doGet("https://api.openai.com/v1/assistants/{$asstid}/files");
     }
 
+    public function retrieveFile(string $fileid): array
+    {
+        // https://platform.openai.com/docs/api-reference/files/retrieve
+        return $this->comms->doGet("https://api.openai.com/v1/files/{$fileid}");
+    }
+
     public function retrieveAssistantFile(string $asstid, string $fileid): array
     {
         // https://platform.openai.com/docs/api-reference/assistants/getAssistantFile
