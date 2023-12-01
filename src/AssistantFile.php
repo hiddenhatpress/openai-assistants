@@ -22,18 +22,19 @@ class AssistantFile
         return $this->comms->doPost("https://api.openai.com/v1/assistants/{$asstid}/files", ["file_id" => $fileid]);
     }
 
-    public function unassignAssistantFile(string $asstid, string $fileid)
+    public function unassignAssistantFile(string $asstid, string $fileid): array
     {
         // https://platform.openai.com/docs/api-reference/assistants/deleteAssistantFile
         return $this->comms->doDelete("https://api.openai.com/v1/assistants/{$asstid}/files/{$fileid}");
     }
 
-    public function unassignAndDeleteAssistantFile(string $asstid, string $fileid)
+    public function unassignAndDeleteAssistantFile(string $asstid, string $fileid): array
     {
         // https://platform.openai.com/docs/api-reference/assistants/deleteAssistantFile
-        $this->comms->doDelete("https://api.openai.com/v1/assistants/{$asstid}/files/{$fileid}");
+        $first = $this->comms->doDelete("https://api.openai.com/v1/assistants/{$asstid}/files/{$fileid}");
         // https://platform.openai.com/docs/api-reference/files/delete
-        $this->delFile($fileid);
+        $second = $this->delFile($fileid);
+        return [$first, $second];
     }
 
     public function listAssistantFiles(

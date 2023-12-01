@@ -27,7 +27,7 @@ class AsstComms
 
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-        $optarray[CURLOPT_RETURNTRANSFER ] = 1;
+        $optarray[CURLOPT_RETURNTRANSFER] = 1;
         $optarray[CURLOPT_URL] = $url;
         curl_setopt_array($curl, $optarray);
         $result = curl_exec($curl);
