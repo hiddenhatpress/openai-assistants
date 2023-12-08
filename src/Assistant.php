@@ -26,6 +26,12 @@ class Assistant
         ];
 
         $tools = array_map(function ($type) {
+            if (is_array($type)) {
+                if (! isset($type['type'])) {
+                    throw new \Exception("unknown tool format");
+                }
+                return $type;
+            }
             return ['type' => $type];
         }, $toolTypes);
         $data['tools'] = $tools;
@@ -86,6 +92,12 @@ class Assistant
 
         $url = "https://api.openai.com/v1/assistants/{$id}";
         $tools = array_map(function ($type) {
+            if (is_array($type)) {
+                if (! isset($type['type'])) {
+                    throw new \Exception("unknown tool format");
+                }
+                return $type;
+            }
             return ['type' => $type];
         }, $toolTypes);
 
