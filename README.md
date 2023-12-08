@@ -1,6 +1,11 @@
 # openai-assistants
-#
+
 A quick and dirty client for OpenAI's assistants API.
+
+## NOTE
+Although this package is still maintained for now (I'm using it in [Shelley](https://github.com/getinstancemz/shelley)), the Assistants API is now included in the full OpenAI Client at [orhanerday/open-ai](https://github.com/orhanerday/open-ai). You might want to use that for a much wider feature set. This library plugged a gap that has now been filled. That said, read on for a worked example of file retrieval with the OpenAI Assistants API.
+
+## OpenAI API docs
 
 * [OpenAI Assistants overview](https://platform.openai.com/docs/assistants/overview)
 * [OpenAI API documentation](https://platform.openai.com/docs/api-reference/assistants)
