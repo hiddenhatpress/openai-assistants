@@ -20,8 +20,10 @@ class Message
             "content" => $content,
             "role" => $role,
             "file_ids" => $file_ids,
-            "metadata" => $metadata,
         ];
+        if (! empty($metadata)) {
+            $data["metadata"] = $metadata;
+        }
         return $this->comms->doPost("https://api.openai.com/v1/threads/{$thread_id}/messages", $data);
     }
 
@@ -31,10 +33,11 @@ class Message
         array $metadata = []
     ): array {
         // https://platform.openai.com/docs/api-reference/messages/modifyMessage
-         $data = [
-             "metadata" => $metadata,
-         ];
-         return $this->comms->doPost("https://api.openai.com/v1/threads/{$threadid}/messages/{$msgid}", $data);
+        $data = [];
+        if (! empty($metadata)) {
+            $data["metadata"] = $metadata;
+        }
+        return $this->comms->doPost("https://api.openai.com/v1/threads/{$threadid}/messages/{$msgid}", $data);
     }
 
     public function retrieve(string $threadid, string $msgid): array

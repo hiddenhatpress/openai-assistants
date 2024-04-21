@@ -13,8 +13,10 @@ class Thread
         // https://platform.openai.com/docs/api-reference/threads/createThread
         $data = [
             "messages" => $messages,
-            "metadata" => $metadata,
         ];
+        if (! empty($metadata)) {
+            $data["metadata"] = $metadata;
+        }
         return $this->comms->doPost("https://api.openai.com/v1/threads", $data);
     }
 
@@ -23,8 +25,11 @@ class Thread
         // https://platform.openai.com/docs/api-reference/threads/modifyThread
         $data = [
             "messages" => $messages,
-            "metadata" => $metadata,
         ];
+        if (! empty($metadata)) {
+            $data["metadata"] = $metadata;
+        }
+
         return $this->comms->doPost("https://api.openai.com/v1/threads/{$threadid}", $data);
     }
 

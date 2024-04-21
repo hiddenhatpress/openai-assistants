@@ -20,9 +20,11 @@ class Run
 
          $data = [
              "assistant_id" => $assistantid,
-             "metadata" => $metadata
          ];
 
+         if (! empty($metadata)) {
+             $data["metadata"] = $metadata;
+         }
          if (! is_null($toolTypes)) {
              $tools = array_map(function ($type) {
                  return ['type' => $type];
@@ -54,8 +56,10 @@ class Run
         $url = "https://api.openai.com/v1/threads/runs";
          $data = [
              "assistant_id" => $assistantid,
-             "metadata" => $metadata
          ];
+         if (! empty($metadata)) {
+             $data["metadata"] = $metadata;
+         }
 
          if (! is_null($toolTypes)) {
              $tools = array_map(function ($type) {
@@ -92,9 +96,11 @@ class Run
         string $runid,
         array $metadata = [],
     ): array {
-         $data = [
-             "metadata" => $metadata
-         ];
+
+         $data = [];
+         if (! empty($metadata)) {
+             $data["metadata"] = $metadata;
+         }
          // https://platform.openai.com/docs/api-reference/runs/modifyRun
          $url = "https://api.openai.com/v1/threads/{$threadid}/runs/{$runid}";
          return $this->comms->doPost($url, $data);
